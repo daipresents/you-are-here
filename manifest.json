@@ -1,12 +1,17 @@
 {
   "manifest_version": 3,
   "name": "You are here",
-  "version": "1.1",
-  "description": "特定のURLに反応してバナーを表示させるChrome拡張です。URLとバナーの色を設定可能です。開発環境、STG環境、本番環境のURLを設定しておけば、「えーっといまどこの環境だっけ？」とならないはずです。この拡張の内部ではデータ送信を行っていないため、安心してお使いいただけます。 GitHub: https://github.com/daipresents/you-are-here",
-  "permissions": ["storage", "scripting", "tabs"],
+  "version": "1.0",
+  "description": "現在アクセス中のサイトを明示する拡張機能",
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  },
+  "permissions": ["storage"],
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Access Banner Settings"
+    "default_title": "You are here 設定"
   },
   "background": {
     "service_worker": "background.js"
@@ -15,10 +20,9 @@
     {
       "matches": ["<all_urls>"],
       "js": ["content.js"],
-      "css": ["styles.css"]
+      "run_at": "document_idle"
     }
   ],
-  "host_permissions": ["<all_urls>"],
   "web_accessible_resources": [
     {
       "resources": ["rules.json"],
@@ -26,4 +30,3 @@
     }
   ]
 }
-
