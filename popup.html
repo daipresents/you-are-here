@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>アクセスバナー設定</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 10px;
+        width: 300px;
+      }
+      input[type="text"],
+      input[type="color"] {
+        width: 100%;
+        margin: 5px 0;
+      }
+      button {
+        margin: 5px 0;
+      }
+      .rule {
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>ルール追加</h3>
+    <input type="text" id="url" placeholder="URL（部分一致）" />
+    <input type="text" id="name" placeholder="名前" />
+    <input type="color" id="color" value="#ff0000" />
+    <button id="addRule">追加</button>
+
+    <h3>登録済みルール</h3>
+    <div id="rulesList"></div>
+
+    <h3>インポート / エクスポート</h3>
+    <button id="exportRules">ルールをエクスポート</button>
+    <input type="file" id="importFile" accept=".json" />
+    <button id="importRules">インポート</button>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
