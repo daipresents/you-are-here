@@ -59,7 +59,7 @@ document.getElementById("exportRules").addEventListener("click", () => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "access-banner-rules.json";
+    a.download = "you-are-here-rules.json";
     a.click();
     URL.revokeObjectURL(url);
   });
