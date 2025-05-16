@@ -20,5 +20,5 @@ zip ファイルに固めて Chrome ウェブストアで公開。
 
 ```bash
 cd you-are-here
-zip -r ../you-are-here.zip . -x ".*" -x "__MACOSX" -x "*/.*"
+zip -r ~/Downloads/you-are-here.zip . -x ".*" -x "__MACOSX" -x "*/.*"
 ```
