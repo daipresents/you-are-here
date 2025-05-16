@@ -36,6 +36,20 @@ exportHeading.parentNode.insertBefore(exportMsg, exportHeading.nextSibling);
 const importHeading = document.querySelector('h3:nth-of-type(4)');
 importHeading.parentNode.insertBefore(importMsg, importHeading.nextSibling);
 
+function i18nReplace() {
+  // テキストノード
+  document.querySelectorAll('.i18n').forEach(el => {
+    const key = el.dataset.i18n;
+    if (key) el.textContent = chrome.i18n.getMessage(key);
+  });
+  // placeholder
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+    if (key) el.placeholder = chrome.i18n.getMessage(key);
+  });
+}
+document.addEventListener('DOMContentLoaded', i18nReplace);
+
 function showError(message) {
   errorMsg.textContent = message;
   errorMsg.style.display = "inline";
@@ -70,8 +84,8 @@ function loadRules() {
       div.innerHTML = `
         <strong>${rule.name}</strong><br>
         URL: ${rule.url}<br>
-        色: <span style="color:${rule.color}">${rule.color}</span><br>
-        <button data-index="${index}">削除</button>
+        ${chrome.i18n.getMessage("colorLabel")}: <span style="color:${rule.color}">${rule.color}</span><br>
+        <button data-index="${index}" class="i18n" data-i18n="deleteButton">${chrome.i18n.getMessage("deleteButton")}</button>
       `;
       rulesList.appendChild(div);
 
@@ -94,7 +108,7 @@ addBtn.addEventListener("click", () => {
   chrome.storage.local.get("rules", (data) => {
     const rules = data.rules || [];
     if (rules.length >= MAX_RULES) {
-      showError(`登録できませんでした。URLは最大${MAX_RULES}件まで登録できます。`);
+      showError(chrome.i18n.getMessage("maxRules", [MAX_RULES]));
       return;
     }
     rules.push({ url, name, color });
@@ -102,12 +116,19 @@ addBtn.addEventListener("click", () => {
       urlInput.value = "";
       nameInput.value = "";
       loadRules();
-      clearError();
+      showError(chrome.i18n.getMessage("ruleAdded", [name]));
+      setTimeout(clearError, 2000); // 2秒後に消す
     });
   });
 });
 
-document.addEventListener("DOMContentLoaded", loadRules);
+document.addEventListener("DOMContentLoaded", () => {
+  loadRules();
+  document.querySelectorAll('.i18n').forEach(el => {
+    const key = el.dataset.i18n;
+    el.textContent = chrome.i18n.getMessage(key);
+  });
+});
 
 // エクスポート
 document.getElementById("exportRules").addEventListener("click", () => {
@@ -121,9 +142,9 @@ document.getElementById("exportRules").addEventListener("click", () => {
       a.download = "you-are-here-rules.json";
       a.click();
       URL.revokeObjectURL(url);
-      showExportMsg("ルールをエクスポートしました");
+      showExportMsg(chrome.i18n.getMessage("ruleExported"));
     } catch (e) {
-      showExportMsg("エクスポートに失敗しました", true);
+      showExportMsg(chrome.i18n.getMessage("invalidJson"), true);
     }
   });
 });
@@ -133,7 +154,7 @@ document.getElementById("importRules").addEventListener("click", () => {
   const fileInput = document.getElementById("importFile");
   const file = fileInput.files[0];
   if (!file) {
-    showImportMsg("ファイルを選択してください。", true);
+    showImportMsg(chrome.i18n.getMessage("selectFile"), true);
     return;
   }
 
@@ -144,16 +165,16 @@ document.getElementById("importRules").addEventListener("click", () => {
       if (!Array.isArray(importedRules)) throw new Error("不正な形式");
 
       if (importedRules.length > MAX_RULES) {
-        showImportMsg(`最大${MAX_RULES}件までインポートできます。`, true);
+        showImportMsg(chrome.i18n.getMessage("maxImportRules", [MAX_RULES]), true);
         return;
       }
 
       chrome.storage.local.set({ rules: importedRules }, () => {
         loadRules();
-        showImportMsg("ルールをインポートしました");
+        showImportMsg(chrome.i18n.getMessage("ruleImported"));
       });
     } catch (e) {
-      showImportMsg("無効なJSONファイルです。", true);
+      showImportMsg(chrome.i18n.getMessage("invalidJson"), true);
     }
   };
   reader.readAsText(file);

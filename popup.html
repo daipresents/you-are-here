@@ -25,24 +25,38 @@
     </style>
   </head>
   <body>
-    <h3>ルール追加</h3>
-    <input type="text" id="url" placeholder="URL（部分一致）" />
-    <input type="text" id="name" placeholder="名前" />
+    <h3 class="i18n" data-i18n="addRule"></h3>
+    <input
+      type="text"
+      id="url"
+      placeholder=""
+      data-i18n-placeholder="urlPlaceholder"
+    />
+    <input
+      type="text"
+      id="name"
+      placeholder=""
+      data-i18n-placeholder="namePlaceholder"
+    />
     <input type="color" id="color" value="#ff0000" />
-    <button id="addRule">追加</button>
+    <button id="addRule"><span class="i18n" data-i18n="addRule"></span></button>
 
-    <h3>登録済みルール</h3>
+    <h3 class="i18n" data-i18n="registeredRules"></h3>
     <div id="rulesList"></div>
 
-    <h3>エクスポート</h3>
+    <h3 class="i18n" data-i18n="exportHeading"></h3>
     <div style="margin-bottom: 16px">
-      <button id="exportRules">ルールをエクスポート</button>
+      <button id="exportRules">
+        <span class="i18n" data-i18n="exportButton"></span>
+      </button>
     </div>
 
-    <h3>インポート</h3>
+    <h3 class="i18n" data-i18n="importHeading"></h3>
     <div>
       <input type="file" id="importFile" accept=".json" />
-      <button id="importRules">インポート</button>
+      <button id="importRules">
+        <span class="i18n" data-i18n="importButton"></span>
+      </button>
     </div>
 
     <script src="popup.js"></script>

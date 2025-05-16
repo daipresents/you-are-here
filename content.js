@@ -23,7 +23,7 @@ function showBanner(name, color) {
   banner.style.setProperty("--banner-color", color);
 
   // バナーのテキストを左に90度回転し、折り返し防止
-  banner.innerHTML = `<span style="display: inline-block; transform: rotate(-90deg); white-space: nowrap;">「${name}」にアクセス中</span>`;
+  banner.innerHTML = `<span style="display: inline-block; transform: rotate(-90deg); white-space: nowrap;">${chrome.i18n.getMessage("accessing", [name])}</span>`;
 
   // スタイル定義
   const style = document.createElement("style");

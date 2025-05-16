@@ -28,5 +28,6 @@
       "resources": ["rules.json"],
       "matches": ["<all_urls>"]
     }
-  ]
+  ],
+  "default_locale": "ja"
 }
