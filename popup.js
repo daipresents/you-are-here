@@ -13,6 +13,29 @@ errorMsg.style.marginLeft = "10px";
 errorMsg.style.fontWeight = "bold";
 addBtn.parentNode.insertBefore(errorMsg, addBtn.nextSibling);
 
+// エクスポート・インポート用メッセージ表示要素を作成
+const exportMsg = document.createElement("div");
+exportMsg.id = "exportMsg";
+exportMsg.style.color = "green";
+exportMsg.style.fontWeight = "bold";
+exportMsg.style.marginBottom = "8px";
+exportMsg.style.display = "none";
+
+const importMsg = document.createElement("div");
+importMsg.id = "importMsg";
+importMsg.style.color = "green";
+importMsg.style.fontWeight = "bold";
+importMsg.style.marginBottom = "8px";
+importMsg.style.display = "none";
+
+// エクスポート見出しの下に挿入
+const exportHeading = document.querySelector('h3:nth-of-type(3)');
+exportHeading.parentNode.insertBefore(exportMsg, exportHeading.nextSibling);
+
+// インポート見出しの下に挿入
+const importHeading = document.querySelector('h3:nth-of-type(4)');
+importHeading.parentNode.insertBefore(importMsg, importHeading.nextSibling);
+
 function showError(message) {
   errorMsg.textContent = message;
   errorMsg.style.display = "inline";
@@ -21,6 +44,20 @@ function showError(message) {
 function clearError() {
   errorMsg.textContent = "";
   errorMsg.style.display = "none";
+}
+
+function showExportMsg(message, isError = false) {
+  exportMsg.textContent = message;
+  exportMsg.style.color = isError ? "red" : "green";
+  exportMsg.style.display = "block";
+  setTimeout(() => { exportMsg.style.display = "none"; }, 2000);
+}
+
+function showImportMsg(message, isError = false) {
+  importMsg.textContent = message;
+  importMsg.style.color = isError ? "red" : "green";
+  importMsg.style.display = "block";
+  setTimeout(() => { importMsg.style.display = "none"; }, 2000);
 }
 
 function loadRules() {
@@ -75,14 +112,19 @@ document.addEventListener("DOMContentLoaded", loadRules);
 // エクスポート
 document.getElementById("exportRules").addEventListener("click", () => {
   chrome.storage.local.get("rules", (data) => {
-    const rules = data.rules || [];
-    const blob = new Blob([JSON.stringify(rules, null, 2)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "you-are-here-rules.json";
-    a.click();
-    URL.revokeObjectURL(url);
+    try {
+      const rules = data.rules || [];
+      const blob = new Blob([JSON.stringify(rules, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "you-are-here-rules.json";
+      a.click();
+      URL.revokeObjectURL(url);
+      showExportMsg("ルールをエクスポートしました");
+    } catch (e) {
+      showExportMsg("エクスポートに失敗しました", true);
+    }
   });
 });
 
@@ -91,7 +133,7 @@ document.getElementById("importRules").addEventListener("click", () => {
   const fileInput = document.getElementById("importFile");
   const file = fileInput.files[0];
   if (!file) {
-    alert("ファイルを選択してください。");
+    showImportMsg("ファイルを選択してください。", true);
     return;
   }
 
@@ -102,13 +144,16 @@ document.getElementById("importRules").addEventListener("click", () => {
       if (!Array.isArray(importedRules)) throw new Error("不正な形式");
 
       if (importedRules.length > MAX_RULES) {
-        alert(`最大${MAX_RULES}件までインポートできます。`);
+        showImportMsg(`最大${MAX_RULES}件までインポートできます。`, true);
         return;
       }
 
-      chrome.storage.local.set({ rules: importedRules }, loadRules);
+      chrome.storage.local.set({ rules: importedRules }, () => {
+        loadRules();
+        showImportMsg("ルールをインポートしました");
+      });
     } catch (e) {
-      alert("無効なJSONファイルです。");
+      showImportMsg("無効なJSONファイルです。", true);
     }
   };
   reader.readAsText(file);

@@ -34,10 +34,16 @@
     <h3>登録済みルール</h3>
     <div id="rulesList"></div>
 
-    <h3>インポート / エクスポート</h3>
-    <button id="exportRules">ルールをエクスポート</button>
-    <input type="file" id="importFile" accept=".json" />
-    <button id="importRules">インポート</button>
+    <h3>エクスポート</h3>
+    <div style="margin-bottom: 16px">
+      <button id="exportRules">ルールをエクスポート</button>
+    </div>
+
+    <h3>インポート</h3>
+    <div>
+      <input type="file" id="importFile" accept=".json" />
+      <button id="importRules">インポート</button>
+    </div>
 
     <script src="popup.js"></script>
   </body>
