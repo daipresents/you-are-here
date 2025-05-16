@@ -25,6 +25,25 @@
     </style>
   </head>
   <body>
+    <h3 class="i18n" data-i18n="bannerPositionHeading"></h3>
+    <div style="margin-bottom: 12px">
+      <label>
+        <input type="radio" name="bannerPosition" value="top" />
+        <span class="i18n" data-i18n="bannerPositionTop"></span>
+      </label>
+      <label style="margin-left: 16px">
+        <input type="radio" name="bannerPosition" value="right" />
+        <span class="i18n" data-i18n="bannerPositionRight"></span>
+      </label>
+      <button id="saveBannerPosition" style="margin-left: 16px">
+        <span class="i18n" data-i18n="saveButton"></span>
+      </button>
+      <span
+        id="bannerPositionMsg"
+        style="color: green; margin-left: 10px; display: none"
+      ></span>
+    </div>
+
     <h3 class="i18n" data-i18n="addRule"></h3>
     <input
       type="text"

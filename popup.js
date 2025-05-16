@@ -130,6 +130,35 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+  // 初期値の反映
+  chrome.storage.local.get("bannerPosition", (data) => {
+    const pos = data.bannerPosition || "right";
+    const radios = document.querySelectorAll('input[name="bannerPosition"]');
+    radios.forEach(radio => {
+      radio.checked = (radio.value === pos);
+    });
+  });
+
+  // 保存ボタン
+  document.getElementById('saveBannerPosition').addEventListener('click', () => {
+    const selected = document.querySelector('input[name="bannerPosition"]:checked').value;
+    chrome.storage.local.set({ bannerPosition: selected }, () => {
+      const msg = document.getElementById('bannerPositionMsg');
+      msg.textContent = chrome.i18n.getMessage("saved") || "保存しました";
+      msg.style.display = "inline";
+      setTimeout(() => { msg.style.display = "none"; }, 1500);
+
+      // 元の画面（拡張機能のポップアップを開いているタブ）をリロード
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        if (tabs[0] && tabs[0].id) {
+          chrome.tabs.reload(tabs[0].id);
+        }
+      });
+    });
+  });
+});
+
 // エクスポート
 document.getElementById("exportRules").addEventListener("click", () => {
   chrome.storage.local.get("rules", (data) => {

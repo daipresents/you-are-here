@@ -1,5 +1,10 @@
 {
   "extName": { "message": "You Are Here" },
+    "bannerPositionHeading": { "message": "Banner Position" },
+  "bannerPositionTop": { "message": "Top of Screen" },
+  "bannerPositionRight": { "message": "Right Side of Screen" },
+  "saveButton": { "message": "Save" },
+  "saved": { "message": "Saved" },
   "addRule": { "message": "Add" },
   "export": { "message": "Export" },
   "import": { "message": "Import" },

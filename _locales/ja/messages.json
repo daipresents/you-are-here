@@ -1,6 +1,11 @@
 {
   "extName": { "message": "You Are Here" },
   "addRule": { "message": "追加" },
+    "bannerPositionHeading": { "message": "バナー表示位置" },
+  "bannerPositionTop": { "message": "画面上部" },
+  "bannerPositionRight": { "message": "画面右側" },
+  "saveButton": { "message": "保存" },
+  "saved": { "message": "保存しました" },
   "export": { "message": "エクスポート" },
   "import": { "message": "インポート" },
   "ruleAdded": { "message": "ルール「$1」を追加しました" },
