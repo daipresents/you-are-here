@@ -3,6 +3,25 @@ const nameInput = document.getElementById("name");
 const colorInput = document.getElementById("color");
 const addBtn = document.getElementById("addRule");
 const rulesList = document.getElementById("rulesList");
+const MAX_RULES = 15;
+
+// エラーメッセージ表示用要素を追加
+const errorMsg = document.createElement("span");
+errorMsg.id = "errorMsg";
+errorMsg.style.color = "red";
+errorMsg.style.marginLeft = "10px";
+errorMsg.style.fontWeight = "bold";
+addBtn.parentNode.insertBefore(errorMsg, addBtn.nextSibling);
+
+function showError(message) {
+  errorMsg.textContent = message;
+  errorMsg.style.display = "inline";
+}
+
+function clearError() {
+  errorMsg.textContent = "";
+  errorMsg.style.display = "none";
+}
 
 function loadRules() {
   chrome.storage.local.get("rules", (data) => {
@@ -28,6 +47,7 @@ function loadRules() {
 }
 
 addBtn.addEventListener("click", () => {
+  clearError();
   const url = urlInput.value.trim();
   const name = nameInput.value.trim();
   const color = colorInput.value;
@@ -36,8 +56,8 @@ addBtn.addEventListener("click", () => {
 
   chrome.storage.local.get("rules", (data) => {
     const rules = data.rules || [];
-    if (rules.length >= 5) {
-      alert("最大5件までです。");
+    if (rules.length >= MAX_RULES) {
+      showError(`登録できませんでした。URLは最大${MAX_RULES}件まで登録できます。`);
       return;
     }
     rules.push({ url, name, color });
@@ -45,6 +65,7 @@ addBtn.addEventListener("click", () => {
       urlInput.value = "";
       nameInput.value = "";
       loadRules();
+      clearError();
     });
   });
 });
@@ -80,8 +101,8 @@ document.getElementById("importRules").addEventListener("click", () => {
       const importedRules = JSON.parse(reader.result);
       if (!Array.isArray(importedRules)) throw new Error("不正な形式");
 
-      if (importedRules.length > 5) {
-        alert("最大5件までインポートできます。");
+      if (importedRules.length > MAX_RULES) {
+        alert(`最大${MAX_RULES}件までインポートできます。`);
         return;
       }
 

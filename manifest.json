@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "You are here: 特定のURLのときだけ画面上部にバナーを表示するだけの拡張機能",
-  "version": "1.1",
+  "version": "1.2",
   "description": "開発、STG、PRODのように環境を切り分けている人が、今どこにいるかすぐわかる拡張機能です",
   "icons": {
     "16": "images/icon16.png",
