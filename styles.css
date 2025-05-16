@@ -15,3 +15,67 @@
 body {
   padding-top: 50px;
 }
+
+.you-are-here-banner.top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 40px;
+  background-color: var(--banner-color, red);
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  z-index: 9999;
+  animation: blink 2.5s ease-in-out infinite;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  pointer-events: none;
+  user-select: none;
+}
+.you-are-here-banner.right {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 100vh;
+  background-color: var(--banner-color, red);
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  z-index: 9999;
+  animation: blink 2.5s ease-in-out infinite;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  pointer-events: none;
+  user-select: none;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.popup-root {
+  font-family: sans-serif;
+  padding: 10px;
+  width: 600px;
+}
+.popup-root input[type="text"],
+.popup-root input[type="color"] {
+  width: 100%;
+  margin: 5px 0;
+}
+.popup-root button {
+  margin: 5px 0;
+}
+.popup-root .rule {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+}
