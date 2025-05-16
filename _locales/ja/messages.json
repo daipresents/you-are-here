@@ -1,7 +1,8 @@
 {
-  "extName": { "message": "You Are Here" },
+  "extName": { "message": "You are here: 特定のURLのときだけ画面上部にバナーを表示するだけの拡張機能" },
+  "extDescription": { "message": "開発、STG、PRODのように環境を切り分けている人が、今どこにいるかすぐわかる拡張機能です" },
   "addRule": { "message": "追加" },
-    "bannerPositionHeading": { "message": "バナー表示位置" },
+  "bannerPositionHeading": { "message": "バナー表示位置" },
   "bannerPositionTop": { "message": "画面上部" },
   "bannerPositionRight": { "message": "画面右側" },
   "saveButton": { "message": "保存" },

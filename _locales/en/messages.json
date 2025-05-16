@@ -1,6 +1,7 @@
 {
-  "extName": { "message": "You Are Here" },
-    "bannerPositionHeading": { "message": "Banner Position" },
+  "extName": { "message": "You are here: Banner on top only for specific URLs" },
+  "extDescription": { "message": "A Chrome extension that helps you instantly see which environment (DEV, STG, PROD, etc.) you are in." },
+  "bannerPositionHeading": { "message": "Banner Position" },
   "bannerPositionTop": { "message": "Top of Screen" },
   "bannerPositionRight": { "message": "Right Side of Screen" },
   "saveButton": { "message": "Save" },
