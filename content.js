@@ -45,6 +45,8 @@ function showBanner(name, color) {
       align-items: center;
       justify-content: center;
       padding: 0;
+      pointer-events: none; /* ← 追加：バナーの後ろの要素をクリック可能に */
+      user-select: none;    /* ← 追加：バナーのテキスト選択も不可に */
     }
     @keyframes blink {
       0%, 100% { opacity: 1; }
