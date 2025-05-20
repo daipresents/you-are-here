@@ -88,13 +88,53 @@ function loadRules() {
         <strong>${rule.name}</strong><br>
         URL: ${rule.url}<br>
         ${chrome.i18n.getMessage("colorLabel")}: <span style="color:${rule.color}">${rule.color}</span><br>
+        <button data-index="${index}" class="edit-btn">編集</button>
         <button data-index="${index}" class="i18n" data-i18n="deleteButton">${chrome.i18n.getMessage("deleteButton")}</button>
       `;
       rulesList.appendChild(div);
 
-      div.querySelector("button").addEventListener("click", () => {
+      // 削除ボタン
+      div.querySelector(".i18n[data-i18n='deleteButton']").addEventListener("click", () => {
         rules.splice(index, 1);
         chrome.storage.local.set({ rules }, loadRules);
+      });
+
+      // 編集ボタン
+      div.querySelector(".edit-btn").addEventListener("click", () => {
+        // 編集用フォーム（追加と同じデザイン）に切り替え
+        div.innerHTML = `
+          <input type="text" value="${rule.url}" style="width: 100%; margin: 5px 0;" class="edit-url" placeholder="URL" />
+          <input type="text" value="${rule.name}" style="width: 100%; margin: 5px 0;" class="edit-name" placeholder="名前" />
+          <input type="color" class="edit-color" value="${rule.color}" />
+          <input type="text" class="edit-color-hex" value="${rule.color}" maxlength="7" style="width: 90px; margin-left: 8px;" />
+          <button class="save-btn">${chrome.i18n.getMessage("saveButton")}</button>
+          <button class="cancel-btn">${chrome.i18n.getMessage("cancelButton")}</button>
+        `;
+        // カラーピッカーとHEX欄の連動
+        const editColorInput = div.querySelector(".edit-color");
+        const editColorHexInput = div.querySelector(".edit-color-hex");
+        editColorInput.addEventListener("input", () => {
+          editColorHexInput.value = editColorInput.value;
+        });
+        editColorHexInput.addEventListener("input", () => {
+          let val = editColorHexInput.value;
+          if (/^#([0-9a-fA-F]{6})$/.test(val)) {
+            editColorInput.value = val;
+          }
+        });
+        // 保存ボタン
+        div.querySelector(".save-btn").addEventListener("click", () => {
+          const newUrl = div.querySelector(".edit-url").value.trim();
+          const newName = div.querySelector(".edit-name").value.trim();
+          const newColor = div.querySelector(".edit-color").value;
+          if (!newName || !newUrl) return;
+          rules[index] = { name: newName, url: newUrl, color: newColor };
+          chrome.storage.local.set({ rules }, loadRules);
+        });
+        // キャンセルボタン
+        div.querySelector(".cancel-btn").addEventListener("click", () => {
+          loadRules();
+        });
       });
     });
   });

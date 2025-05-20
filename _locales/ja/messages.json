@@ -26,5 +26,6 @@
   "selectFile": { "message": "ファイルを選択してください。" },
   "invalidJson": { "message": "無効なJSONファイルです。" },
   "invalidFormat": { "message": "不正な形式" },
-  "accessing": { "message": "「$1」にアクセス中" }
+  "accessing": { "message": "「$1」にアクセス中" },
+  "cancelButton": { "message": "キャンセル" }
 }
