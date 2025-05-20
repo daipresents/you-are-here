@@ -13,7 +13,7 @@
   font-family: sans-serif;
 }
 body {
-  padding-top: 50px;
+  padding: 0;
 }
 
 .you-are-here-banner.top {
@@ -21,7 +21,7 @@ body {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 40px;
+  height: 50px;
   background-color: var(--banner-color, red);
   color: white;
   text-align: center;
@@ -40,7 +40,7 @@ body {
   position: fixed;
   top: 0;
   right: 0;
-  width: 40px;
+  width: 50px;
   height: 100vh;
   background-color: var(--banner-color, red);
   color: white;

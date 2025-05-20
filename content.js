@@ -26,10 +26,18 @@ function showBanner(name, color) {
     banner.className = `you-are-here-banner ${position}`;
     banner.style.setProperty("--banner-color", color);
 
+    // バナー位置に応じてbodyのpaddingを切り替え
     if (position === "top") {
+      document.body.style.paddingTop = "50px";
+      document.body.style.paddingRight = "0";
       banner.innerHTML = `<span style="white-space: nowrap;">${chrome.i18n.getMessage("accessing", [name])}</span>`;
-    } else {
+    } else if (position === "right") {
+      document.body.style.paddingTop = "0";
+      document.body.style.paddingRight = "50px";
       banner.innerHTML = `<span style="display: inline-block; transform: rotate(-90deg); white-space: nowrap;">${chrome.i18n.getMessage("accessing", [name])}</span>`;
+    } else {
+      document.body.style.paddingTop = "0";
+      document.body.style.paddingRight = "0";
     }
 
     document.body.appendChild(banner);
