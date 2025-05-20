@@ -1,6 +1,7 @@
 const urlInput = document.getElementById("url");
 const nameInput = document.getElementById("name");
 const colorInput = document.getElementById("color");
+const colorHexInput = document.getElementById("color-hex");
 const addBtn = document.getElementById("addRule");
 const rulesList = document.getElementById("rulesList");
 const MAX_RULES = 15;
@@ -101,8 +102,8 @@ function loadRules() {
 
 addBtn.addEventListener("click", () => {
   clearError();
-  const url = urlInput.value.trim();
   const name = nameInput.value.trim();
+  const url = urlInput.value.trim();
   const color = colorInput.value;
 
   if (!url || !name) return;
@@ -209,4 +210,14 @@ document.getElementById("importRules").addEventListener("click", () => {
     }
   };
   reader.readAsText(file);
+});
+
+colorInput.addEventListener("input", () => {
+  colorHexInput.value = colorInput.value;
+});
+colorHexInput.addEventListener("input", () => {
+  let val = colorHexInput.value;
+  if (/^#([0-9a-fA-F]{6})$/.test(val)) {
+    colorInput.value = val;
+  }
 });
