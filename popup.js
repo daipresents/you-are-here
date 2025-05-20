@@ -29,11 +29,11 @@ importMsg.style.marginBottom = "8px";
 importMsg.style.display = "none";
 
 // エクスポート見出しの下に挿入
-const exportHeading = document.querySelector('h3:nth-of-type(3)');
+const exportHeading = document.querySelector('h3:nth-of-type(4)');
 exportHeading.parentNode.insertBefore(exportMsg, exportHeading.nextSibling);
 
 // インポート見出しの下に挿入
-const importHeading = document.querySelector('h3:nth-of-type(4)');
+const importHeading = document.querySelector('h3:nth-of-type(5)');
 importHeading.parentNode.insertBefore(importMsg, importHeading.nextSibling);
 
 function i18nReplace() {
