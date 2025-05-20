@@ -88,7 +88,7 @@ function loadRules() {
         <strong>${rule.name}</strong><br>
         URL: ${rule.url}<br>
         ${chrome.i18n.getMessage("colorLabel")}: <span style="color:${rule.color}">${rule.color}</span><br>
-        <button data-index="${index}" class="edit-btn">編集</button>
+        <button data-index="${index}" class="edit-btn">${chrome.i18n.getMessage("editButton")}</button>
         <button data-index="${index}" class="i18n" data-i18n="deleteButton">${chrome.i18n.getMessage("deleteButton")}</button>
       `;
       rulesList.appendChild(div);

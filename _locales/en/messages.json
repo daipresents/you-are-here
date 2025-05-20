@@ -27,5 +27,6 @@
   "invalidJson": { "message": "Invalid JSON file." },
   "invalidFormat": { "message": "Invalid format" },
   "accessing": { "message": "Accessing \"$1\"" },
-  "cancelButton": { "message": "Cancel" }
+  "cancelButton": { "message": "Cancel" },
+  "editButton": { "message": "Edit" }
 }

@@ -27,5 +27,6 @@
   "invalidJson": { "message": "無効なJSONファイルです。" },
   "invalidFormat": { "message": "不正な形式" },
   "accessing": { "message": "「$1」にアクセス中" },
-  "cancelButton": { "message": "キャンセル" }
+  "cancelButton": { "message": "キャンセル" },
+  "editButton": { "message": "編集" }
 }
