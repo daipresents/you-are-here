@@ -76,7 +76,9 @@ function showImportMsg(message, isError = false) {
 
 function loadRules() {
   chrome.storage.local.get("rules", (data) => {
-    const rules = data.rules || [];
+    let rules = data.rules || [];
+    // 名前の昇順でソート
+    rules = rules.slice().sort((a, b) => (a.name || '').localeCompare(b.name || ''));
     rulesList.innerHTML = "";
     rules.forEach((rule, index) => {
       const div = document.createElement("div");
