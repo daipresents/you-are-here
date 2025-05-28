@@ -118,7 +118,7 @@ function loadRules() {
         });
         editColorHexInput.addEventListener("input", () => {
           let val = editColorHexInput.value;
-          if (/^#([0-9a-fA-F]{6})$/.test(val)) {
+          if (isValidHexColor(val)) {
             editColorInput.value = val;
           }
         });
@@ -255,9 +255,15 @@ document.getElementById("importRules").addEventListener("click", () => {
 colorInput.addEventListener("input", () => {
   colorHexInput.value = colorInput.value;
 });
+
+// HEXカラーコードのバリデーション共通関数
+function isValidHexColor(val) {
+  return /^#([0-9a-fA-F]{6})$/.test(val);
+}
+
 colorHexInput.addEventListener("input", () => {
   let val = colorHexInput.value;
-  if (/^#([0-9a-fA-F]{6})$/.test(val)) {
+  if (isValidHexColor(val)) {
     colorInput.value = val;
   }
 });
